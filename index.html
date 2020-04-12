@@ -6,52 +6,50 @@
 	<meta name="description" content="Novelty estimator for COVID-19">
 	<title>COVID-19 Novelty Estimator</title>
 	<link rel="icon" type="image/png" href="/favicon.png">
-	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400&amp;display=swap">
 	<link rel="stylesheet" type="text/css" href="main/styling.css">
   </head>
 
   <body>
-  	<h1>Covid -19 Novel Estimator </h1>
-    <div>
-    	<form style>
-    		<label for="name">Region Name</label>
-    		<input type="text" name="" data-region-name required>
+  	<h1 class="svelte-psb86l">Covid -19 Novel Estimator </h1>
+    <div id="" class="svelte-psb86l">
+    	<form class="svelte-1pepwc8" style>
+    		<label for="name">*Region Name</label>
+    		<input id="name" type="text" name="name" data-region-name required>
     		<label for="population">Region Population</label>
-    		<input type="number" name="" data-population>
-    		<label for="avgAge" >Average age</label>
-    		<input type="number" step="0.01" name="" data-avg-age>
-    		<label for="avgDailyIncomeInUSD" >Average daily income (in USD)</label>
-    		<input type="number" step="0.01" name="" data-avg-daily-income>
-    		<label for="avgDailyIncomePopulation"> Average Daily Income Population</label>
-    		<input type="number" step="0.01" name="" data-avg-daily-icome-population required>
-    		<label for="reportedCases">Reported Cases</label>
-    		<input type="number" name="" data-reported-cases required>
-    		<label for="totalHospitalBeds">Total hospital beds</label>
-    		<input type="number" name="" data-total-hospital-beds required>
-    		<label for="timeToElapse">Time to elapse</label>
-    		<input type="number" name="" data-time-to-elapse required>
-    		<label for="periodType"></label>
-    		<select data-period-type = "days">
+    		<input id="population" type="number" name="population" data-population>
+    		<label for="avgAge">Average age</label>
+    		<input id="avgAge" type="number" step="0.01" name="avgAge" data-avg-age>
+    		<label for="avgDailyIncomeInUSD" >*Average daily income (in USD)</label>
+    		<input id="avgDailyIncomeInUSD" type="number" step="0.01" name="avgDailyIncomeInUSD" data-avg-daily-income required>
+    		<label for="avgDailyIncomePopulation">*Average Daily Income Population</label>
+    		<input id="avgDailyIncomePopulation" type="number" step="0.01" name="avgDailyIncomePopulation" data-avg-daily-icome-population required>
+    		<label for="reportedCases">*Reported Cases</label>
+    		<input id="reportedCases" type="number" name="reportedCases" data-reported-cases required>
+    		<label for="totalHospitalBeds">*Total hospital beds</label>
+    		<input id="totalHospitalBeds" type="number" name="totalHospitalBeds" data-total-hospital-beds required>
+    		<label for="timeToElapse">*Time to elapse</label>
+    		<input id="timeToElapse" type="number" name="timeToElapse"  data-time-to-elapse required>
+    		<label for="periodType">*Period Type</label>
+    		<select id="periodType" data-period-type = "days">
     			<option value="days">days</option>
     			<option value="weeks">weeks</option>
     			<option value="months">months</option>
     		</select>
     		<button type="submit" data-go-estimate>
-    			"Submit "
+    			Submit
     			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svelte-c8tyih">
     				<path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path>
     			</svg>
     		</button>
     	</form>
-    </div>
-    <!-- Display For Impact -->
-    <div class="svelte-1h0ma34">
+    	<div class="svelte-1h0ma34" style="display: none;">
     	<section class="svelte-1h0ma34">
     		<button class="best active svelte-1h0ma34">The Impact</button>
-    		<button class="worst svelte-1h0ma34">Severe Impact</button>
+    		<button class="worst svelte-1h0ma34">The Severe Impact</button>
     	</section>
-    	<p>
+    	<p class="svelte-1h0ma34">
     		From the data given there are currently <span id="reportedCases"></span> in your region <span id="region"></span>, studies show that there may actually be up to <span id=""></span> unconfirmed cases.
     	</p>
     	<h2 class="svelte-1h0ma34">In <span id="tTE"></span> days, there will be:</h2>
@@ -72,10 +70,46 @@
     			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svelte-c8tyih">
     				<path d="M528 224H272c-8.8 0-16 7.2-16 16v144H64V144c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v352c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-48h512v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V336c0-61.9-50.1-112-112-112zM136 96h126.1l27.6 55.2c5.9 11.8 22.7 11.8 28.6 0L368 51.8 390.1 96H512c8.8 0 16-7.2 16-16s-7.2-16-16-16H409.9L382.3 8.8C376.4-3 359.6-3 353.7 8.8L304 108.2l-19.9-39.8c-1.4-2.7-4.1-4.4-7.2-4.4H136c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8zm24 256c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64z"></path>
     			</svg>
-    			
+    			<p class="svelte-1nz99rr">
+    				<span class="svelte-1nz99rr"><span id=""> </span></span>
+    				<br>
+    				<span id="">severe cases</span>
+    			</p>
+    		</div>
+    		<div class="svelte-1nz99rr">
+    			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svelte-c8tyih">
+    				<path d="M288 115L69.47 307.71c-1.62 1.46-3.69 2.14-5.47 3.35V496a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V311.1c-1.7-1.16-3.72-1.82-5.26-3.2zm96 261a8 8 0 0 1-8 8h-56v56a8 8 0 0 1-8 8h-48a8 8 0 0 1-8-8v-56h-56a8 8 0 0 1-8-8v-48a8 8 0 0 1 8-8h56v-56a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v56h56a8 8 0 0 1 8 8zm186.69-139.72l-255.94-226a39.85 39.85 0 0 0-53.45 0l-256 226a16 16 0 0 0-1.21 22.6L25.5 282.7a16 16 0 0 0 22.6 1.21L277.42 81.63a16 16 0 0 1 21.17 0L527.91 283.9a16 16 0 0 0 22.6-1.21l21.4-23.82a16 16 0 0 0-1.22-22.59z"></path>
+    			</svg>
+    			<p class="svelte-1nz99rr">
+    				<span class="svelte-1nz99rr"><span id=""></span></span>
+    				<br>
+    				<span id="">patients who will require intensive care</span>
+    			</p>    			
+    		</div>
+    		<div class="svelte-1nz99rr">
+    			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svelte-c8tyih">
+    				<path d="M336 448H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h320c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zm208-320V80c0-8.84-7.16-16-16-16s-16 7.16-16 16v48h-32V80c0-8.84-7.16-16-16-16s-16 7.16-16 16v48h-16c-8.84 0-16 7.16-16 16v32c0 35.76 23.62 65.69 56 75.93v118.49c0 13.95-9.5 26.92-23.26 29.19C431.22 402.5 416 388.99 416 372v-28c0-48.6-39.4-88-88-88h-8V64c0-35.35-28.65-64-64-64H96C60.65 0 32 28.65 32 64v352h288V304h8c22.09 0 40 17.91 40 40v24.61c0 39.67 28.92 75.16 68.41 79.01C481.71 452.05 520 416.41 520 372V251.93c32.38-10.24 56-40.17 56-75.93v-32c0-8.84-7.16-16-16-16h-16zm-283.91 47.76l-93.7 139c-2.2 3.33-6.21 5.24-10.39 5.24-7.67 0-13.47-6.28-11.67-12.92L167.35 224H108c-7.25 0-12.85-5.59-11.89-11.89l16-107C112.9 99.9 117.98 96 124 96h68c7.88 0 13.62 6.54 11.6 13.21L192 160h57.7c9.24 0 15.01 8.78 10.39 15.76z"></path>
+    			</svg>
+    			<p class="svelte-1nz99rr">
+    				<span class="svelte-1nz99rr"><span id=""></span></span>
+    				<br>
+    				<span id="">patients who will require a ventilator</span>
+    			</p>
+    		</div>
+    		<div class="svelte-1nz99rr">
+    			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 512" class="svelte-c8tyih">
+    				<path d="M209.2 233.4l-108-31.6C88.7 198.2 80 186.5 80 173.5c0-16.3 13.2-29.5 29.5-29.5h66.3c12.2 0 24.2 3.7 34.2 10.5 6.1 4.1 14.3 3.1 19.5-2l34.8-34c7.1-6.9 6.1-18.4-1.8-24.5C238 74.8 207.4 64.1 176 64V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48h-2.5C45.8 64-5.4 118.7.5 183.6c4.2 46.1 39.4 83.6 83.8 96.6l102.5 30c12.5 3.7 21.2 15.3 21.2 28.3 0 16.3-13.2 29.5-29.5 29.5h-66.3C100 368 88 364.3 78 357.5c-6.1-4.1-14.3-3.1-19.5 2l-34.8 34c-7.1 6.9-6.1 18.4 1.8 24.5 24.5 19.2 55.1 29.9 86.5 30v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-48.2c46.6-.9 90.3-28.6 105.7-72.7 21.5-61.6-14.6-124.8-72.5-141.7z"></path>
+    			</svg>
+    			<p class="svelte-1nz99rr">
+    				<span class="svelte-1nz99rr"><span id=""></span></span>
+    				<br>
+    				<span id="">USD lost during this period</span>
+    			</p>
     		</div>
     	</div>
+    	<button class="alt svelte-1h0ma34">Run another estimate</button>
     </div>
+    </div>   
 	<script type="text/javascript" src="main/script.js"></script>
   </body>
 </html>
