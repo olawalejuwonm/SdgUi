@@ -7,52 +7,51 @@
 	<title>COVID-19 Novelty Estimator</title>
 	<link rel="icon" type="image/png" href="/favicon.png">
 	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400&amp;display=swap">
 	<link rel="stylesheet" type="text/css" href="main/styling.css">
   </head>
 
   <body>
   	<h1 class="svelte-psb86l">Covid -19 Novel Estimator </h1>
     <div id="firstdiv" class="svelte-psb86l">
-    	<form id="form" class="svelte-1pepwc8" style>
+    	<div id="form" oninput="funcAttr()" class="svelte-1pepwc8">
     		<label for="name">*Region Name</label>
-    		<input id="name" type="text" name="name" data-region-name required>
+    		<input placeholder="Africa" id="name" type="text" name="name" data-region-name required>
     		<label for="population">Region Population</label>
-    		<input id="population" type="number" name="population" data-population>
+    		<input placeholder="66622705" id="population" type="number" name="population" data-population>
     		<label for="avgAge">Average age</label>
-    		<input id="avgAge" type="number" step="0.01" name="avgAge" data-avg-age>
-    		<label for="avgDailyIncomeInUSD" >*Average daily income (in USD)</label>
-    		<input id="avgDailyIncomeInUSD" type="number" step="0.01" name="avgDailyIncomeInUSD" data-avg-daily-income required>
-    		<label for="avgDailyIncomePopulation">*Average Daily Income Population</label>
-    		<input id="avgDailyIncomePopulation" type="number" step="0.01" name="avgDailyIncomePopulation" data-avg-daily-icome-population required>
+    		<input placeholder="19.7" id="avgAge" type="number" step="0.1" name="avgAge" data-avg-age>
+    		<label for="avgDailyIncomeInUSD" >*Average daily income (in USD) Of Region</label>
+    		<input placeholder="5" id="avgDailyIncomeInUSD" type="number" step="1" name="avgDailyIncomeInUSD" data-avg-daily-income required>
+    		<label for="avgDailyIncomePopulation">*Average Daily Income Population Of Region</label>
+    		<input placeholder="0.71" id="avgDailyIncomePopulation" type="number" step="0.01" name="avgDailyIncomePopulation" data-avg-daily-income-population required>
     		<label for="reportedCases">*Reported Cases</label>
-    		<input id="reportedCases" type="number" name="reportedCases" data-reported-cases required>
-    		<label for="totalHospitalBeds">*Total hospital beds</label>
-    		<input id="totalHospitalBeds" type="number" name="totalHospitalBeds" data-total-hospital-beds required>
-    		<label for="timeToElapse">*Time to elapse</label>
-    		<input id="timeToElapse" type="number" name="timeToElapse"  data-time-to-elapse required>
+    		<input placeholder="674" id="reportedCases" type="number" name="reportedCases" data-reported-cases required>
+    		<label for="totalHospitalBeds">*Total Hospital Beds Of Region</label>
+    		<input placeholder="1380614" id="totalHospitalBeds" type="number" name="totalHospitalBeds" data-total-hospital-beds required>
+    		<label for="timeToElapse">*Time To Elapse (Estimation)</label>
+    		<input placeholder="58" id="timeToElapse" type="number" name="timeToElapse"  data-time-to-elapse required>
     		<label for="periodType">*Period Type</label>
     		<select id="periodType" data-period-type = "days">
     			<option value="days">days</option>
     			<option value="weeks">weeks</option>
     			<option value="months">months</option>
     		</select>
-    		<button type="submit" onclick="covid19ImpactEstimator()" data-go-estimate>
+    		<button id="ImpactEstimator" type="submit" onclick="covid19ImpactEstimator()" data-go-estimate>
     			Submit
     			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svelte-c8tyih">
     				<path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path>
     			</svg>
     		</button>
-    	</form>
-    	<div class="svelte-1h0ma34" style="display: none;">
+    	</div>
+    	<div id="analysis" class="svelte-1h0ma34" style="display: none;">
     	<section class="svelte-1h0ma34">
-    		<button class="best active svelte-1h0ma34">The Impact</button>
-    		<button class="worst svelte-1h0ma34">The Severe Impact</button>
+    		<button id="theimpact" onclick="covid19ImpactEstimator()" class="best active svelte-1h0ma34">The Impact</button>
+    		<button id="Thesevereimpact" class="worst svelte-1h0ma34" onclick="SevereImpact()">The Severe Impact</button>
     	</section>
     	<p class="svelte-1h0ma34">
-    		From the data given there are currently <span id="reportedCases"></span> in your region <span id="region"></span>, studies show that there may actually be up to <span id=""></span> unconfirmed cases.
+    		<b>From The Data Provided, There Are <span id="repoCases"></span> Currently Infected Cases(Known) in <span id="region"></span> Region</b>.
     	</p>
-    	<h2 class="svelte-1h0ma34">In <span id="tTE"></span> days, there will be:</h2>
+    	<h2 class="svelte-1h0ma34">In <span id="days"></span> Days, The Estimation Will be:</h2>
     	<div class="svelte-bk7fep" style>
     		<div class="svelte-1nz99rr">
     			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svelte-c8tyih">
@@ -60,20 +59,10 @@
     			</svg>
     			<p class="svelte-1nz99rr">
     				<span class="svelte-1nz99rr">
-    					<span id = ""></span>
+    					<span id = "infectionBRQT"></span>
     				</span>
     				<br>
-    				<span>Unconfirmed Positive Cases</span>
-    			</p>
-    		</div>
-    		<div class="svelte-1nz99rr">
-    			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svelte-c8tyih">
-    				<path d="M528 224H272c-8.8 0-16 7.2-16 16v144H64V144c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v352c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-48h512v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V336c0-61.9-50.1-112-112-112zM136 96h126.1l27.6 55.2c5.9 11.8 22.7 11.8 28.6 0L368 51.8 390.1 96H512c8.8 0 16-7.2 16-16s-7.2-16-16-16H409.9L382.3 8.8C376.4-3 359.6-3 353.7 8.8L304 108.2l-19.9-39.8c-1.4-2.7-4.1-4.4-7.2-4.4H136c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8zm24 256c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64z"></path>
-    			</svg>
-    			<p class="svelte-1nz99rr">
-    				<span class="svelte-1nz99rr"><span id=""> </span></span>
-    				<br>
-    				<span id="">severe cases</span>
+    				<span id="infBRQT">Unknown Infected (Positive) Cases</span>
     			</p>
     		</div>
     		<div class="svelte-1nz99rr">
@@ -81,9 +70,29 @@
     				<path d="M288 115L69.47 307.71c-1.62 1.46-3.69 2.14-5.47 3.35V496a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V311.1c-1.7-1.16-3.72-1.82-5.26-3.2zm96 261a8 8 0 0 1-8 8h-56v56a8 8 0 0 1-8 8h-48a8 8 0 0 1-8-8v-56h-56a8 8 0 0 1-8-8v-48a8 8 0 0 1 8-8h56v-56a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v56h56a8 8 0 0 1 8 8zm186.69-139.72l-255.94-226a39.85 39.85 0 0 0-53.45 0l-256 226a16 16 0 0 0-1.21 22.6L25.5 282.7a16 16 0 0 0 22.6 1.21L277.42 81.63a16 16 0 0 1 21.17 0L527.91 283.9a16 16 0 0 0 22.6-1.21l21.4-23.82a16 16 0 0 0-1.22-22.59z"></path>
     			</svg>
     			<p class="svelte-1nz99rr">
-    				<span class="svelte-1nz99rr"><span id=""></span></span>
+    				<span class="svelte-1nz99rr"><span id="severeBRQT"></span></span>
     				<br>
-    				<span id="">patients who will require intensive care</span>
+    				<span id="">Patients Who Will Require Hospitalization (Severe Cases)</span>
+    			</p>    			
+    		</div>
+    		<div class="svelte-1nz99rr">
+    			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svelte-c8tyih">
+    				<path d="M528 224H272c-8.8 0-16 7.2-16 16v144H64V144c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v352c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-48h512v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V336c0-61.9-50.1-112-112-112zM136 96h126.1l27.6 55.2c5.9 11.8 22.7 11.8 28.6 0L368 51.8 390.1 96H512c8.8 0 16-7.2 16-16s-7.2-16-16-16H409.9L382.3 8.8C376.4-3 359.6-3 353.7 8.8L304 108.2l-19.9-39.8c-1.4-2.7-4.1-4.4-7.2-4.4H136c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8zm24 256c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64z"></path>
+    			</svg>
+    			<p class="svelte-1nz99rr">
+    				<span class="svelte-1nz99rr"><span id="availHB"> </span></span>
+    				<br>
+    				<span id="">Available Hospital Beds For Severe Positive Cases</span>
+    			</p>
+    		</div>
+    		<div class="svelte-1nz99rr">
+    			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svelte-c8tyih">
+    				<path d="M288 115L69.47 307.71c-1.62 1.46-3.69 2.14-5.47 3.35V496a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V311.1c-1.7-1.16-3.72-1.82-5.26-3.2zm96 261a8 8 0 0 1-8 8h-56v56a8 8 0 0 1-8 8h-48a8 8 0 0 1-8-8v-56h-56a8 8 0 0 1-8-8v-48a8 8 0 0 1 8-8h56v-56a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v56h56a8 8 0 0 1 8 8zm186.69-139.72l-255.94-226a39.85 39.85 0 0 0-53.45 0l-256 226a16 16 0 0 0-1.21 22.6L25.5 282.7a16 16 0 0 0 22.6 1.21L277.42 81.63a16 16 0 0 1 21.17 0L527.91 283.9a16 16 0 0 0 22.6-1.21l21.4-23.82a16 16 0 0 0-1.22-22.59z"></path>
+    			</svg>
+    			<p class="svelte-1nz99rr">
+    				<span class="svelte-1nz99rr"><span id="severeICU"></span></span>
+    				<br>
+    				<span id="">Severe Positive Cases That Will Require Intensive Care Unit</span>
     			</p>    			
     		</div>
     		<div class="svelte-1nz99rr">
@@ -91,9 +100,9 @@
     				<path d="M336 448H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h320c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zm208-320V80c0-8.84-7.16-16-16-16s-16 7.16-16 16v48h-32V80c0-8.84-7.16-16-16-16s-16 7.16-16 16v48h-16c-8.84 0-16 7.16-16 16v32c0 35.76 23.62 65.69 56 75.93v118.49c0 13.95-9.5 26.92-23.26 29.19C431.22 402.5 416 388.99 416 372v-28c0-48.6-39.4-88-88-88h-8V64c0-35.35-28.65-64-64-64H96C60.65 0 32 28.65 32 64v352h288V304h8c22.09 0 40 17.91 40 40v24.61c0 39.67 28.92 75.16 68.41 79.01C481.71 452.05 520 416.41 520 372V251.93c32.38-10.24 56-40.17 56-75.93v-32c0-8.84-7.16-16-16-16h-16zm-283.91 47.76l-93.7 139c-2.2 3.33-6.21 5.24-10.39 5.24-7.67 0-13.47-6.28-11.67-12.92L167.35 224H108c-7.25 0-12.85-5.59-11.89-11.89l16-107C112.9 99.9 117.98 96 124 96h68c7.88 0 13.62 6.54 11.6 13.21L192 160h57.7c9.24 0 15.01 8.78 10.39 15.76z"></path>
     			</svg>
     			<p class="svelte-1nz99rr">
-    				<span class="svelte-1nz99rr"><span id=""></span></span>
+    				<span class="svelte-1nz99rr"><span id="severeVenti"></span></span>
     				<br>
-    				<span id="">patients who will require a ventilator</span>
+    				<span >Severe Positive Cases That Will Require Ventilators</span>
     			</p>
     		</div>
     		<div class="svelte-1nz99rr">
@@ -101,21 +110,153 @@
     				<path d="M209.2 233.4l-108-31.6C88.7 198.2 80 186.5 80 173.5c0-16.3 13.2-29.5 29.5-29.5h66.3c12.2 0 24.2 3.7 34.2 10.5 6.1 4.1 14.3 3.1 19.5-2l34.8-34c7.1-6.9 6.1-18.4-1.8-24.5C238 74.8 207.4 64.1 176 64V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48h-2.5C45.8 64-5.4 118.7.5 183.6c4.2 46.1 39.4 83.6 83.8 96.6l102.5 30c12.5 3.7 21.2 15.3 21.2 28.3 0 16.3-13.2 29.5-29.5 29.5h-66.3C100 368 88 364.3 78 357.5c-6.1-4.1-14.3-3.1-19.5 2l-34.8 34c-7.1 6.9-6.1 18.4 1.8 24.5 24.5 19.2 55.1 29.9 86.5 30v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-48.2c46.6-.9 90.3-28.6 105.7-72.7 21.5-61.6-14.6-124.8-72.5-141.7z"></path>
     			</svg>
     			<p class="svelte-1nz99rr">
-    				<span class="svelte-1nz99rr"><span id=""></span></span>
+    				<span class="svelte-1nz99rr"><span id="dollarFly"></span></span>
     				<br>
-    				<span id="">USD lost during this period</span>
+    				<span>USD Lost Due To Infected Cases (Dollar In Flight)</span>
     			</p>
     		</div>
     	</div>
-    	<button class="alt svelte-1h0ma34">Run another estimate</button>
+    	<button onclick="Rerun()" class="alt svelte-1h0ma34">Run another estimate</button>
     </div>
+    <div id="test" style="background:linear-gradient(to left, blue, green);font-family: monospace;font-style: italic;font-size: 30px;text-align: center;">
+    <span><b>Developed By Olawale Micheal Juwon<b></span>
+    <a style="color: black"  href="mailto:olawalejuwon@gmail.com">olawalejuwon@gmail.com</a><br>
+    <span style="text-align: center;">Build For Sdg</span>     
+    </div>  
     </div> 
-    <div id="test"></div>  
+    
 	<script type="text/javascript">
-// function covid19ImpactEstimator() {
-//     alert("a")
-//    //clearing of page
-// }
+var inName = document.getElementById('name');
+var inPopu = document.getElementById('population');
+var inAvgA = document.getElementById('avgAge');
+var inAvgU = document.getElementById('avgDailyIncomeInUSD');
+var inAvgP = document.getElementById('avgDailyIncomePopulation');
+var inRepC = document.getElementById('reportedCases');
+var inToHB = document.getElementById('totalHospitalBeds');
+var inTiTE = document.getElementById('timeToElapse');
+var inPerT = document.getElementById('periodType');
+var inImpE = document.getElementById('ImpactEstimator');
+function covid19ImpactEstimator() {
+    // alert("a")
+   //clearing of page
+   // document.getElementById('form').style.display = "none";
+   // inName.style.display = "none";
+   // inPopu.style.display = "none";
+   // inAvgA.style.display = "none";
+   // inAvgU.style.display = "none";
+   // inAvgP.style.display = "none";
+   // inRepC.style.display = "none";
+   // inToHB.style.display = "none";
+   // inTiTE.style.display = "none";
+   // inPerT.style.display = "none";
+   // inImpE.style.display = "none";
+   // inImpE.style.display = "none";
+   // document.getElementById('firstdiv').style.display = "none";
+   document.getElementById('theimpact').setAttribute("class", "best active svelte-1h0ma34")
+   document.getElementById('Thesevereimpact').setAttribute("class", "worst svelte-1h0ma34")
+   var DayNumber;
+   var CurrentlyInfected = inRepC.value * 10
+   document.getElementById('form').style.display = "none";
+   document.getElementById('analysis').style.display = "block";
+   document.getElementById('repoCases').innerHTML = CurrentlyInfected;
+   document.getElementById('region').innerHTML = inName.value;
+   if (inPerT.value === 'days') {
+    DayNumber = inTiTE.value;
+  } else if (inPerT.value === 'weeks') {
+    DayNumber = 7 * inTiTE.value;
+  }
+  if (inPerT.value === 'months') {
+    DayNumber = 30 * inTiTE.value;
+  }
+   document.getElementById('days').innerHTML = DayNumber;
+   var factor = Math.trunc(DayNumber / 3);
+
+   const impactInfBrqt = Math.trunc(CurrentlyInfected * (2 ** factor));
+   document.getElementById('infectionBRQT').innerHTML = impactInfBrqt;
+   
+   const impSevercaseBrqt = Math.trunc(0.15 * impactInfBrqt);
+   document.getElementById('severeBRQT').innerHTML = impSevercaseBrqt;
+
+   var availableBed = 0.35 * inToHB.value;
+   const impAvailBed = Math.trunc(availableBed - impSevercaseBrqt);
+   document.getElementById('availHB').innerHTML = impAvailBed;
+
+   const impSevIcu = Math.trunc(0.05 * impactInfBrqt);
+   document.getElementById('severeICU').innerHTML = impSevIcu;
+
+   const impSevVent = Math.trunc(0.02 * impactInfBrqt);
+   document.getElementById('severeVenti').innerHTML = impSevVent;
+   
+   var avgDInPop = Number(inAvgP.value);
+   var avgIncome = Number(inAvgU.value);
+   var days = Number(DayNumber);
+
+  const impDollInFlight = Math.trunc((impactInfBrqt * avgDInPop
+    * avgIncome) / days);
+  document.getElementById('dollarFly').innerHTML = impDollInFlight;
+}
+function funcAttr() {
+	inName.setAttribute("data-region-name", inName.value);
+    inPopu.setAttribute("data-population", inPopu.value);
+	inAvgA.setAttribute("data-avg-age", inAvgA.value);
+	inAvgU.setAttribute("data-avg-daily-income", inAvgU.value);
+	inAvgP.setAttribute("data-avg-daily-income-population", inAvgP.value);
+	inRepC.setAttribute("data-reported-cases", inRepC.value);
+	inToHB.setAttribute("data-total-hospital-beds", inToHB.value);
+	inTiTE.setAttribute("data-time-to-elapse", inTiTE.value);
+	inPerT.setAttribute("data-period-type", inPerT.value);
+}
+function SevereImpact() {
+  document.getElementById('Thesevereimpact').setAttribute("class", "best active svelte-1h0ma34")
+  document.getElementById('theimpact').setAttribute("class", "worst svelte-1h0ma34")
+  var availableBed = 0.35 * inToHB.value;
+  var DayNumber;
+  if (inPerT.value === 'days') {
+    DayNumber = inTiTE.value;
+  } else if (inPerT.value === 'weeks') {
+    DayNumber = 7 * inTiTE.value;
+  }
+  if (inPerT.value === 'months') {
+    DayNumber = 30 * inTiTE.value;
+  }
+  var avgDInPop = Number(inAvgP.value);
+  var avgIncome = Number(inAvgU.value);
+  var days = Number(DayNumber);
+  const factor = Math.trunc(DayNumber / 3);
+	const sevCurrentlyInfected = inRepC.value * 50;
+  document.getElementById('repoCases').innerHTML = sevCurrentlyInfected;
+  const sevImpactInfBrqt = sevCurrentlyInfected * (2 ** factor);
+  document.getElementById('infectionBRQT').innerHTML = Math.trunc(sevImpactInfBrqt);
+
+  const sevImpSevercaseBrqt = 0.15 * sevImpactInfBrqt;
+  document.getElementById('severeBRQT').innerHTML = Math.trunc(sevImpSevercaseBrqt);
+
+
+  const sevAvailBed = availableBed - sevImpSevercaseBrqt;
+  document.getElementById('availHB').innerHTML = Math.trunc(sevAvailBed);
+
+   const sevSevICU = 0.05 * sevImpactInfBrqt;
+   document.getElementById('severeICU').innerHTML = Math.trunc(sevSevICU);
+
+   const sevSevVent = 0.02 * sevImpactInfBrqt;
+   document.getElementById('severeVenti').innerHTML = Math.trunc(sevSevVent);
+
+   const sevDoll = (sevImpactInfBrqt * avgDInPop * avgIncome) / days
+   document.getElementById('dollarFly').innerHTML = Math.trunc(sevDoll);
+
+
+
+
+
+
+
+
+}
+function Rerun() {
+  document.getElementById('analysis').style.display = "none";
+  document.getElementById('form').style.display = "block";
+  
+}
 //  </script>
 
   </body>
