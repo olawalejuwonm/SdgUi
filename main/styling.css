@@ -38,7 +38,8 @@ div.svelte-psb86l{
   align-items:center;
   width:100%;min-height:100vh;
   padding:10px 0;
-  color:#fff;background:linear-gradient(320deg, #6f0000, #200122);
+  color:#fff;
+  background:linear-gradient(320deg, rgb(179, 198, 255), #200122);
   background-size:400% 400%;
   -webkit-animation:svelte-psb86l-background-animate 6s ease infinite;
   -moz-animation:svelte-psb86l-background-animate 6s ease infinite;
@@ -56,28 +57,29 @@ h1.svelte-psb86l{
 @keyframes svelte-psb86l-background-animate{
   0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
 }
-form.svelte-1pepwc8{
+#form{
   width:90%;
   max-width:400px
 }
-form.svelte-1pepwc8>label{
+#form>label{
   display:block;padding-bottom:10px;
   font-size:1.1em
 }
-form.svelte-1pepwc8>input,form.svelte-1pepwc8>select{
+#form>input,
+#form>select{
   width:100%;
   color:#fff;
   background-color:transparent;
   margin-bottom:20px;
   padding:10px
   }
-form.svelte-1pepwc8>select > option{
+#form>select > option{
   background-color:#200122
 }
-form.svelte-1pepwc8>select{
+#form>select{
   text-transform:capitalize
 }
-form.svelte-1pepwc8>button[type='submit']{
+#form>button[type='submit']{
   display:flex;
   justify-content:center;
   align-items:center;
@@ -93,7 +95,7 @@ form.svelte-1pepwc8>button[type='submit']{
   background:linear-gradient(to left, #6f0000, #200122);
   cursor:pointer
 }
-form.svelte-1pepwc8>button > svg{
+#form>button > svg{
   width:25px;
   height:25px;
   margin-left:10px
